@@ -1,6 +1,6 @@
 import React from "react";
 import "leaflet/dist/leaflet.css";
-import { MapContainer, Marker, TileLayer } from "react-leaflet";
+import { MapContainer, Marker, TileLayer, Popup } from "react-leaflet";
 import { Icon } from "leaflet";
 
 const Map = () => {
@@ -28,7 +28,7 @@ const Map = () => {
   ];
 
   const customIcon = new Icon({
-    iconUrl: "",
+    iconUrl: "/images/pin.png",
     iconSize: [30, 30], // size
   });
 
@@ -41,7 +41,9 @@ const Map = () => {
         />
 
         {markers.map(({ geocode, title }, idx) => (
-          <Marker key={idx} position={geocode}></Marker>
+          <Marker key={idx} position={geocode} icon={customIcon}>
+            <Popup>{title}</Popup>
+          </Marker>
         ))}
       </MapContainer>
     </section>

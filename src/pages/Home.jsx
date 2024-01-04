@@ -2,7 +2,7 @@ import React from "react";
 import Header from "../header/Header";
 import Map from "../map/Map";
 import Sidebar from "../sidebar/Sidebar";
-import Filters from "../filters/Filters";
+import AdForm from "../adForm/AdForm";
 import css from "./Home.module.css";
 
 const Home = () => {
@@ -14,7 +14,7 @@ const Home = () => {
         <div className={css.mapContainer}>
           <Map />
         </div>
-        <Filters />
+        <AdForm />
       </div>
     </>
   );
