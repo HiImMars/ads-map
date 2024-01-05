@@ -45,3 +45,7 @@ a {
 .leaflet-container {
   height: 100vh;
 }
+
+.selected {
+  background-color: grey;
+}

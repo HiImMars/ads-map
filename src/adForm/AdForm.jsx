@@ -1,13 +1,14 @@
 import React, { useState } from "react";
-import { getCoordinates } from "../services";
+import { getAds, getCoordinates } from "../services";
 import css from "./AdForm.module.css";
 import axios from "axios";
 
-const POST_URL = "https://65971a09668d248edf229561.mockapi.io/ads";
+// const POST_URL = "https://65971a09668d248edf229561.mockapi.io/ads";
 
-const AddForm = () => {
+const POST_URL = "https://65986476668d248edf248d1e.mockapi.io/ads";
+
+const AdForm = ({ updateAds }) => {
   const [address, setAddress] = useState("");
-  // const [data, setData] = useState({});
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -32,7 +33,11 @@ const AddForm = () => {
         formData.geo = [lat, lon];
 
         const postResponce = await axios.post(POST_URL, formData);
+
         console.log("Posted", postResponce.data);
+
+        const response = await getAds();
+        updateAds(response.data);
       } catch (error) {
         console.log("Error", error.message);
       }
@@ -72,4 +77,4 @@ const AddForm = () => {
   );
 };
 
-export default AddForm;
+export default AdForm;
