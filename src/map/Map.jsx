@@ -48,7 +48,7 @@ const Map = ({ selectedAd, markers, onMarkerClick }) => {
               click: () => handleMarkerClick(id),
             }}
           >
-            <Popup>{title}</Popup>
+            {/* <Popup>{title}</Popup> */}
           </Marker>
         ))}
       </MapContainer>
