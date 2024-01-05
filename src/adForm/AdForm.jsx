@@ -1,37 +1,75 @@
 import React, { useState } from "react";
+import { getCoordinates } from "../services";
+import css from "./AdForm.module.css";
+import axios from "axios";
 
-const AdForm = () => {
-  const [advertisement, setAdvertisement] = useState("");
+const POST_URL = "https://65971a09668d248edf229561.mockapi.io/ads";
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+const AddForm = () => {
+  const [address, setAddress] = useState("");
+  // const [data, setData] = useState({});
 
-    // Отримати дані з форми та використати їх
-    console.log("Submitted Advertisement:", advertisement);
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
-    // Тут ви можете реалізувати логіку для відправлення даних на сервер або виконати інші дії
-  };
+    const cityValue = e.target.elements.city.value;
+    const titleValue = e.target.elements.title.value;
+    const imageValue = e.target.elements.image.value;
+    const priceValue = e.target.elements.price.value;
 
-  const handleInputChange = (event) => {
-    setAdvertisement(event.target.value);
+    const formData = {
+      city: cityValue,
+      title: titleValue,
+      image: imageValue,
+      price: priceValue,
+    };
+
+    const fetchCoordinates = async () => {
+      try {
+        const resp = await getCoordinates(address);
+        const lat = resp.data[0].lat;
+        const lon = resp.data[0].lon;
+        formData.geo = [lat, lon];
+
+        const postResponce = await axios.post(POST_URL, formData);
+        console.log("Posted", postResponce.data);
+      } catch (error) {
+        console.log("Error", error.message);
+      }
+    };
+
+    fetchCoordinates();
+
+    console.log(formData);
   };
 
   return (
-    <>
-      <h2>Make an advertisement</h2>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Advertisement:
-          <input
-            type="text"
-            value={advertisement}
-            onChange={handleInputChange}
-          />
-        </label>
-        <button type="submit">Post advertisement</button>
-      </form>
-    </>
+    <form onSubmit={handleSubmit} className={css.form}>
+      <h2>Enter your ads info</h2>
+      <label>
+        City
+        <input
+          name="city"
+          type="text"
+          value={address}
+          onChange={(e) => setAddress(e.target.value)}
+        />
+      </label>
+      <label>
+        Title
+        <input type="text" name="title" />
+      </label>
+      <label>
+        Image
+        <input type="text" name="image" />
+      </label>
+      <label>
+        Price in UAH
+        <input type="number" name="price" />
+      </label>
+      <button type="submit">Make an Advertisement</button>
+    </form>
   );
 };
 
-export default AdForm;
+export default AddForm;
