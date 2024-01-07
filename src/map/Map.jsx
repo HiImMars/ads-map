@@ -1,25 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import "leaflet/dist/leaflet.css";
 import { MapContainer, Marker, TileLayer, Popup } from "react-leaflet";
 import { Icon } from "leaflet";
-import { getAds } from "../services";
+import css from "./Map.module.css";
 
 const Map = ({ selectedAd, markers, onMarkerClick }) => {
-  // const [markers, setMarkers] = useState([]);
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const response = await getAds();
-
-  //       setMarkers(response.data);
-  //     } catch (error) {
-  //       console.error(error.message);
-  //     }
-  //   };
-  //   fetchData();
-  // }, [markers]);
-
   const customIcon = new Icon({
     iconUrl: "/images/pin.png",
     iconSize: [30, 30], // size
@@ -38,7 +23,7 @@ const Map = ({ selectedAd, markers, onMarkerClick }) => {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
 
-        {markers.map(({ geo, title, id }) => (
+        {markers.map(({ geo, title, id, image, price, city }) => (
           <Marker
             key={id}
             position={geo}
@@ -48,7 +33,14 @@ const Map = ({ selectedAd, markers, onMarkerClick }) => {
               click: () => handleMarkerClick(id),
             }}
           >
-            {/* <Popup>{title}</Popup> */}
+            <Popup>
+              <div className={css.popupDiv}>
+                <h2>{title}</h2>
+                <img src={image} alt={title} />
+                <p>{price} UAH</p>
+                <p>{city}</p>
+              </div>
+            </Popup>
           </Marker>
         ))}
       </MapContainer>
