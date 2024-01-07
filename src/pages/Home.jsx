@@ -9,8 +9,8 @@ import { getAds } from "../services";
 const Home = () => {
   const [selectedAd, setSelectedAd] = useState(null);
   const [ads, setAds] = useState([]);
-
   const [loaded, setLoaded] = useState(false);
+  const [filteredAds, setFilteredAds] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -38,7 +38,7 @@ const Home = () => {
 
   return (
     <>
-      <Header ads={ads} />
+      <Header ads={ads} setFilteredAds={setFilteredAds} />
       <div className={css.pageContainer}>
         <AdForm updateAds={updateAds} ads={ads} />
         <div className={css.mapContainer}>
@@ -52,6 +52,7 @@ const Home = () => {
           setSelectedAd={setSelectedAd}
           ads={ads}
           selectedAd={selectedAd}
+          filteredAds={filteredAds}
         />
       </div>
     </>
