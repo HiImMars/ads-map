@@ -35,10 +35,10 @@ const Map = ({ selectedAd, markers, onMarkerClick }) => {
           >
             <Popup>
               <div className={css.popupDiv}>
-                <h2>{title}</h2>
-                <img src={image} alt={title} />
-                <p>{price} UAH</p>
-                <p>{city}</p>
+                <h2 className={css.title}>{title}</h2>
+                <img src={image} alt={title} className={css.image} />
+                <p className={css.price}>{price} UAH</p>
+                <p className={css.city}>{city}</p>
               </div>
             </Popup>
           </Marker>
