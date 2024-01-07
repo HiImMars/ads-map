@@ -1,10 +1,15 @@
 .pageContainer {
+  max-width: 1560px;
+  margin: 0 auto;
+
   display: flex;
-  /* justify-content: space-between;
-  align-items: center; */
+  justify-content: space-between;
+  gap: 20px;
 }
 
 .mapContainer {
   flex: 1;
   padding: 1px;
+  height: 80vh;
+  overflow: hidden;
 }

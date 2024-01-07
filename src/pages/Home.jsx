@@ -38,7 +38,7 @@ const Home = () => {
 
   return (
     <>
-      <Header />
+      <Header ads={ads} />
       <div className={css.pageContainer}>
         <AdForm updateAds={updateAds} ads={ads} />
         <div className={css.mapContainer}>

@@ -1,11 +1,12 @@
 import React from "react";
 import SidebarItem from "../sidebarItem/SidebarItem";
+import css from "./Sidebar.module.css";
 
 const Sidebar = ({ setSelectedAd, ads, selectedAd }) => {
   return (
-    <>
-      <h2>Advertisements</h2>
-      <ul>
+    <aside className={css.ads}>
+      <h2 className={css.title}>Advertisements</h2>
+      <ul className={css.list}>
         {ads.map(({ title, price, image, id, city }) => (
           <SidebarItem
             key={id}
@@ -18,7 +19,7 @@ const Sidebar = ({ setSelectedAd, ads, selectedAd }) => {
           />
         ))}
       </ul>
-    </>
+    </aside>
   );
 };
 

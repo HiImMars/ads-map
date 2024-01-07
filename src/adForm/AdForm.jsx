@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import { getCoordinates } from "../services";
+import { MOCK_API_BASE_URL, getCoordinates } from "../services";
 import css from "./AdForm.module.css";
 import axios from "axios";
-
-const POST_URL = "https://65986476668d248edf248d1e.mockapi.io/ads";
+import { Notify } from "notiflix/build/notiflix-notify-aio";
 
 const AdForm = ({ updateAds, ads }) => {
   const [address, setAddress] = useState("");
@@ -44,13 +43,16 @@ const AdForm = ({ updateAds, ads }) => {
           formData.geo = [lat, lon];
         }
 
-        const postResponse = await axios.post(POST_URL, formData);
+        const postResponse = await axios.post(
+          `${MOCK_API_BASE_URL}/ads`,
+          formData
+        );
 
-        console.log("Posted", postResponse.data);
+        Notify.success("You advertisement successfully posted");
 
         updateAds((prevAds) => [...prevAds, postResponse.data]);
       } catch (error) {
-        console.log("Error", error.message);
+        Notify.failure("Error, cannot post your advertisement");
       } finally {
         setAddress("");
         setTitle("");
@@ -64,44 +66,66 @@ const AdForm = ({ updateAds, ads }) => {
 
   return (
     <form onSubmit={handleSubmit} className={css.form}>
-      <h2>Enter your ads info</h2>
-      <label>
-        City
+      <h2 className={css.title}>Enter your ads info</h2>
+      <div className={css.inputWrapper}>
+        <label className={css.label} htmlFor="city">
+          City
+        </label>
         <input
+          className={css.input}
+          id="city"
           name="city"
           type="text"
           value={address}
           onChange={(e) => setAddress(e.target.value)}
+          required
         />
-      </label>
-      <label>
-        Title
+      </div>
+      <div className={css.inputWrapper}>
+        <label className={css.label} htmlFor="title">
+          Title
+        </label>
         <input
+          className={css.input}
+          id="title"
           type="text"
           name="title"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
+          required
         />
-      </label>
-      <label>
-        Image
+      </div>
+      <div className={css.inputWrapper}>
+        <label className={css.label} htmlFor="image">
+          Image
+        </label>
         <input
+          className={css.input}
+          id="image"
           type="text"
           name="image"
           value={image}
           onChange={(e) => setImage(e.target.value)}
+          required
         />
-      </label>
-      <label>
-        Price in UAH
+      </div>
+      <div className={css.inputWrapper}>
+        <label className={css.label} htmlFor="price">
+          Price in UAH
+        </label>
         <input
+          className={css.input}
+          id="price"
           type="number"
           name="price"
           value={price}
           onChange={(e) => setPrice(e.target.value)}
+          required
         />
-      </label>
-      <button type="submit">Make an Advertisement</button>
+      </div>
+      <button type="submit" className={css.button}>
+        Make an Advertisement
+      </button>
     </form>
   );
 };

@@ -1,0 +1,31 @@
+.listItem {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  padding: 10px;
+
+  border-radius: 4px;
+  border: 1px solid #325556;
+}
+
+.image {
+  width: 200px;
+  height: 120px;
+}
+
+.title {
+  color: #325556;
+  font-size: 18px;
+}
+
+.price {
+  color: #333333;
+  font-weight: 600;
+}
+
+.city {
+  color: #333333;
+}
