@@ -6,7 +6,7 @@ import css from "./Map.module.css";
 
 const Map = ({ selectedAd, markers, onMarkerClick }) => {
   const customIcon = new Icon({
-    iconUrl: "/images/pin.png",
+    iconUrl: "images/pin.png",
     iconSize: [30, 30], // size
   });
 
